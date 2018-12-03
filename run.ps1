@@ -4,7 +4,7 @@
 # Version 0.0.1
 Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
 # Install Folder
-$url = "https://www.berthit.dk/choco/supporttool.ps1"
+$url = "https://raw.githubusercontent.com/jesperberth/supporttool/master/supporttool.ps1"
 $installdir = "$home\appdata\local\supporttool"
 $supportfile = "$installdir\supporttool.ps1"
 mkdir $installdir

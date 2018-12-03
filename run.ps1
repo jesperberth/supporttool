@@ -18,8 +18,8 @@ $runscript = "Start-Process powershell -Verb runAs 'Set-ExecutionPolicy Bypass -
 
 # Desktop File
 $desktopfile = "$home\Desktop\Support.cmd"
-$desktopfilescript = "powershell.exe '$runscriptfile'" 
+$desktopfilescript = "powershell.exe $runscriptfile" 
 
 # Create Files
 Out-File $runscriptfile -InputObject $runscript -Encoding utf8
-Out-File $desktopfile -InputObject $desktopfilescript -Encoding utf8
+Out-File $desktopfile -InputObject $desktopfilescript -Encoding ascii

@@ -69,7 +69,11 @@ function drivertool {
     $ComputerHW = Get-WmiObject -Class Win32_ComputerSystem
     $ComputerInfoManufacturer = $ComputerHW.Manufacturer
 
-    write-host  $ComputerInfoManufacturer
+    if($ComputerInfoManufacturer -eq "Lenovo" ){
+        write-host "Lenovo"
+    } 
+
+    write-host  "Hardware vendor: $ComputerInfoManufacturer"
 }
 
 function InstallAdobeCreative {

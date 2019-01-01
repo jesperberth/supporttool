@@ -69,9 +69,11 @@ function drivertool {
     $ComputerInfoManufacturer = $ComputerHW.Manufacturer
 
     if($ComputerInfoManufacturer -eq "Lenovo" ){
-        write-host "Lenovo"
+        write-host "Install Support tool for Lenovo"
+        ChocoInstall lenovo-thinkvantage-system-update
     }elseif ($ComputerInfoManufacturer -eq "Hewlett Packert") {
         write-host "Hewlett Packert"
+        write-host "No Support tool for this Computer"
     }else{
         write-host "No Support tool for this Computer"
     } 

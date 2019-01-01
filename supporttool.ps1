@@ -54,8 +54,7 @@ function InstallStandard {
     "firefox",
     "7zip",
     "adobereader",
-    "flashplayerplugin",
-    "flashplayeractivex"
+    "flashplayerplugin"
     )
 
     foreach ($item in $programlist){
@@ -71,6 +70,10 @@ function drivertool {
 
     if($ComputerInfoManufacturer -eq "Lenovo" ){
         write-host "Lenovo"
+    }elseif ($ComputerInfoManufacturer -eq "Hewlett Packert") {
+        write-host "Hewlett Packert"
+    }else{
+        write-host "No Support tool for this Computer"
     } 
 
     write-host  "Hardware vendor: $ComputerInfoManufacturer"

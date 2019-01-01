@@ -14,6 +14,8 @@ function Show-Menu
     Write-Host "3: Install Programming Suite"
     Write-Host "4: Run Support Tool"
     Write-Host "==============================="
+    Write-Host "99: Run Driver Tool"
+    Write-Host "==============================="
     Write-Host "Q: Press 'Q' to quit."
     Write-Host "==============================="
 }
@@ -59,6 +61,15 @@ function InstallStandard {
     foreach ($item in $programlist){
         ChocoInstall $item
     }
+}
+
+function drivertool {
+    Write-Host -ForegroundColor Yellow "Detecting Hardware manufactor`n"
+    
+    $ComputerHW = Get-WmiObject -Class Win32_ComputerSystem
+    $ComputerInfoManufacturer = $ComputerHW.Manufacturer
+
+    write-host  $ComputerInfoManufacturer
 }
 
 function InstallAdobeCreative {
@@ -110,7 +121,10 @@ do
          } '4' {
              Clear-Host
              RunSupport
-            }
+         } '99' {
+                 Clear-Host
+                 drivertool
+                }
      }
      pause
  }

@@ -2,7 +2,8 @@
 #
 # Author: Jesper Berth, Arrow ECS, jesper.berth@arrow.com - 13. November 2018
 # Version 0.0.1
-Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
+Set-ExecutionPolicy Bypass -Scope Process -Force
+#Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
 # Install Folder
 $url = "https://raw.githubusercontent.com/jesperberth/supporttool/master/supporttool.ps1"
 $installdir = "$home\appdata\local\supporttool"

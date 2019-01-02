@@ -12,7 +12,8 @@ function Show-Menu
     Write-Host "1: Install Standard Software"
     Write-Host "2: Install Adobe Creative Suite"
     Write-Host "3: Install Programming Suite"
-    Write-Host "4: Run Support Tool"
+    Write-Host "4: Install Video Suite"
+    Write-Host "5: Run Support Tool"
     Write-Host "==============================="
     Write-Host "99: Run Driver Tool"
     Write-Host "==============================="
@@ -54,7 +55,9 @@ function InstallStandard {
     "firefox",
     "7zip",
     "adobereader",
-    "flashplayerplugin"
+    "flashplayerplugin",
+    "vlc",
+    "filezilla"
     )
 
     foreach ($item in $programlist){
@@ -95,7 +98,22 @@ function InstallAdobeCreative {
 function InstallCode {
     write-host -ForegroundColor Green "Install Programming Suite`n"
     $programlist = @(
-    "vscode"
+    "vscode",
+    "sublimetext3",
+    "cyberduck",
+    "brackets"
+    )
+
+    foreach ($item in $programlist){
+        ChocoInstall $item
+    }
+}
+
+function InstallVideo {
+    write-host -ForegroundColor Green "Install Video Suite`n"
+    $programlist = @(
+    "handbrake.install",
+    ""
     )
 
     foreach ($item in $programlist){
@@ -128,6 +146,9 @@ do
              Clear-Host
              InstallCode
          } '4' {
+             Clear-Host
+             InstallVideo
+         } '5' {
              Clear-Host
              RunSupport
          } '99' {

@@ -5,10 +5,10 @@
 function Show-Menu
 {
     param (
-        [string]$Title = "Support Tool"
+        [string]$Title = "Support Tool - 140319"
     )
     Clear-Host
-    Write-Host "=========== $Title ============`n"
+    Write-Host "========= $Title ==========`n"
     Write-Host "1: Install Standard Software"
     Write-Host "2: Install Adobe Creative Suite"
     Write-Host "3: Install Programming Suite"

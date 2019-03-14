@@ -14,6 +14,7 @@ function Show-Menu
     Write-Host "3: Install Programming Suite"
     Write-Host "4: Install Video Suite"
     Write-Host "5: Run Support Tool"
+    Write-Host "6: Setup Netshare and Print"
     Write-Host "==============================="
     Write-Host "99: Run Driver Tool"
     Write-Host "==============================="
@@ -84,6 +85,32 @@ function drivertool {
     write-host  "Hardware vendor: $ComputerInfoManufacturer"
 }
 
+function RunNetPrint {
+   # Add Network drive and printers
+if(get-command Get-StoredCredential -ErrorAction SilentlyContinue){
+    write-host "CredentialManager is installed"
+    }
+    else{
+    Install-PackageProvider -Name Nuget -MinimumVersion 2.8.5.201 -Force
+    install-module -Name CredentialManager -Confirm:$false -force
+    }
+# Ask for local credentials
+$creds = Get-Credential
+New-StoredCredential -Credentials $creds -Persist LocalMachine -Type DomainPassword -Target Server2
+
+$creds2 = Get-StoredCredential -Target Server2
+
+write-host $creds2
+# Setup J: Share and add printers
+
+write-host -ForegroundColor Green "Please enter credentials for Server2"
+$cred = Get-Credential
+New-PSDrive -Name "J" -Root "\\Server2\JJK" -Persist -PSProvider "FileSystem" -Credential $cred
+add-printer -ConnectionName "\\server2\OKI ES8473 MFP COLOR"
+add-printer -ConnectionName "\\server2\OKI ES8473 MFP SH"
+
+}
+
 function InstallAdobeCreative {
     write-host -ForegroundColor Green "Install Adobe Creative Suite`n"
     $programlist = @(
@@ -151,6 +178,9 @@ do
          } '5' {
              Clear-Host
              RunSupport
+         } '6' {
+             Clear-Host
+             RunNetPrint
          } '99' {
                  Clear-Host
                  drivertool

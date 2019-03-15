@@ -135,13 +135,13 @@ function RunNetPrint {
         write-host -ForegroundColor Green "CredentialManager is installed"
     }
     else{
-        write-host -ForegroundColor Red "CredentialManager is not installed"
+        write-host -ForegroundColor Red "CredentialManager is not installed`n"
         write-host "Installing NuGet and CredentialManager"
         Install-PackageProvider -Name Nuget -MinimumVersion 2.8.5.201 -Force
         install-module -Name CredentialManager -Confirm:$false -force
     }
     # Ask for local credentials
-    write-host -ForegroundColor Green "Please enter credentials for Server2.jjk.local"
+    write-host -ForegroundColor Green "Please enter credentials for Server2.jjk.local`n"
     write-host -ForegroundColor Yellow "Format: jjk\<username>"
     $creds = Get-Credential
     New-StoredCredential -Credentials $creds -Persist LocalMachine -Type DomainPassword -Target Server2.jjk.local

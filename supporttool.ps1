@@ -140,16 +140,9 @@ function RunNetPrint {
         Install-PackageProvider -Name Nuget -MinimumVersion 2.8.5.201 -Force
         install-module -Name CredentialManager -Confirm:$false -force
     }
-    write-host -ForegroundColor Green "Please enter credentials for Server2.jjk.local`n"
-    write-host -ForegroundColor Yellow "Format: jjk\<username>"
-    $creds = Get-Credential
-    New-StoredCredential -Credentials $creds -Persist LocalMachine -Type DomainPassword -Target server2.jjk.local
- 
-    $creds2 = Get-StoredCredential -Target server2.jjk.local
- 
-    New-PSDrive -Name "J" -Root "\\server2.jjk.local\JJK" -Persist -PSProvider "FileSystem" -Credential $creds2
-    add-printer -ConnectionName "\\server2.jjk.local\OKI ES8473 MFP COLOR"
-    add-printer -ConnectionName "\\server2.jjk.local\OKI ES8473 MFP SH"
+    $installdir = "$home\appdata\Local\supporttool"
+    $fileprint = "$installdir\fileprint.ps1"
+    runas /trustlevel:0x20000 "powershell.exe $fileprint"
 }
 
 ChocoInstalled

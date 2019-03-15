@@ -148,7 +148,7 @@ function RunNetPrint {
  
     $creds2 = Get-StoredCredential -Target Server2
  
-    New-PSDrive -Name "J" -Root "\\Server2.jjk.local\JJK" -Persist -PSProvider "FileSystem" -Credential $creds2
+    New-PSDrive -Name "J" -Root "\\server2.jjk.local\JJK" -Persist -PSProvider "FileSystem" -Credential $creds2
     add-printer -ConnectionName "\\server2.jjk.local\OKI ES8473 MFP COLOR"
     add-printer -ConnectionName "\\server2.jjk.local\OKI ES8473 MFP SH"
 }

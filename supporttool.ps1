@@ -131,26 +131,24 @@ function RunSupport {
 }
 
 function RunNetPrint {
-    # Add Network drive and printers
     if(get-command Get-StoredCredential -ErrorAction SilentlyContinue){
-        write-host "CredentialManager is installed"
+        write-host -ForegroundColor Green "CredentialManager is installed"
     }
     else{
+        write-host -ForegroundColor Red "CredentialManager is not installed"
+        write-host "Installing NuGet and CredentialManager"
         Install-PackageProvider -Name Nuget -MinimumVersion 2.8.5.201 -Force
         install-module -Name CredentialManager -Confirm:$false -force
     }
     # Ask for local credentials
+    write-host -ForegroundColor Green "Please enter credentials for Server2.jjk.local"
+    write-host -ForegroundColor Yellow "Format: jjk\<username>"
     $creds = Get-Credential
-    New-StoredCredential -Credentials $creds -Persist LocalMachine -Type DomainPassword -Target Server2
+    New-StoredCredential -Credentials $creds -Persist LocalMachine -Type DomainPassword -Target Server2.jjk.local
  
     $creds2 = Get-StoredCredential -Target Server2
  
-    write-host $creds2
-    # Setup J: Share and add printers
- 
-    write-host -ForegroundColor Green "Please enter credentials for Server2"
-    $cred = Get-Credential
-    New-PSDrive -Name "J" -Root "\\Server2.jjk.local\JJK" -Persist -PSProvider "FileSystem" -Credential $cred
+    New-PSDrive -Name "J" -Root "\\Server2.jjk.local\JJK" -Persist -PSProvider "FileSystem" -Credential $creds2
     add-printer -ConnectionName "\\server2.jjk.local\OKI ES8473 MFP COLOR"
     add-printer -ConnectionName "\\server2.jjk.local\OKI ES8473 MFP SH"
 }

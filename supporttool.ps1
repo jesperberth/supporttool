@@ -5,7 +5,7 @@
 function Show-Menu
 {
     param (
-        [string]$Title = "Support Tool - 140319"
+        [string]$Title = "Support Tool - 150319"
     )
     Clear-Host
     Write-Host "========= $Title ==========`n"
@@ -85,32 +85,6 @@ function drivertool {
     write-host  "Hardware vendor: $ComputerInfoManufacturer"
 }
 
-function RunNetPrint {
-   # Add Network drive and printers
-if(get-command Get-StoredCredential -ErrorAction SilentlyContinue){
-    write-host "CredentialManager is installed"
-    }
-    else{
-    Install-PackageProvider -Name Nuget -MinimumVersion 2.8.5.201 -Force
-    install-module -Name CredentialManager -Confirm:$false -force
-    }
-# Ask for local credentials
-$creds = Get-Credential
-New-StoredCredential -Credentials $creds -Persist LocalMachine -Type DomainPassword -Target Server2
-
-$creds2 = Get-StoredCredential -Target Server2
-
-write-host $creds2
-# Setup J: Share and add printers
-
-write-host -ForegroundColor Green "Please enter credentials for Server2"
-$cred = Get-Credential
-New-PSDrive -Name "J" -Root "\\Server2\JJK" -Persist -PSProvider "FileSystem" -Credential $cred
-add-printer -ConnectionName "\\server2\OKI ES8473 MFP COLOR"
-add-printer -ConnectionName "\\server2\OKI ES8473 MFP SH"
-
-}
-
 function InstallAdobeCreative {
     write-host -ForegroundColor Green "Install Adobe Creative Suite`n"
     $programlist = @(
@@ -154,6 +128,31 @@ function RunSupport {
     Invoke-WebRequest -Uri $uri -OutFile $outfile
     write-host -ForegroundColor Yellow "*** Starting TeamViewer Quick Support ***`n"
     & $outfile
+}
+
+function RunNetPrint {
+    # Add Network drive and printers
+    if(get-command Get-StoredCredential -ErrorAction SilentlyContinue){
+        write-host "CredentialManager is installed"
+    }
+    else{
+        Install-PackageProvider -Name Nuget -MinimumVersion 2.8.5.201 -Force
+        install-module -Name CredentialManager -Confirm:$false -force
+    }
+    # Ask for local credentials
+    $creds = Get-Credential
+    New-StoredCredential -Credentials $creds -Persist LocalMachine -Type DomainPassword -Target Server2
+ 
+    $creds2 = Get-StoredCredential -Target Server2
+ 
+    write-host $creds2
+    # Setup J: Share and add printers
+ 
+    write-host -ForegroundColor Green "Please enter credentials for Server2"
+    $cred = Get-Credential
+    New-PSDrive -Name "J" -Root "\\Server2.jjk.local\JJK" -Persist -PSProvider "FileSystem" -Credential $cred
+    add-printer -ConnectionName "\\server2.jjk.local\OKI ES8473 MFP COLOR"
+    add-printer -ConnectionName "\\server2.jjk.local\OKI ES8473 MFP SH"
 }
 
 ChocoInstalled

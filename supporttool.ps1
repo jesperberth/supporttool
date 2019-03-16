@@ -141,8 +141,10 @@ function RunNetPrint {
         install-module -Name CredentialManager -Confirm:$false -force
     }
     $installdir = "$home\appdata\Local\supporttool"
+    $desktopfile = "$home\Desktop\j-Drev.cmd"
     $fileprint = "$installdir\fileprint.ps1"
-    runas /trustlevel:0x20000 "powershell.exe $fileprint"
+    $desktopfilescript = 'powershell.exe ". $fileprint"'
+    Out-File $desktopfile -InputObject $desktopfilescript -Encoding ascii
 }
 
 ChocoInstalled

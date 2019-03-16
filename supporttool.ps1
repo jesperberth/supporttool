@@ -143,7 +143,7 @@ function RunNetPrint {
     $installdir = "$home\appdata\Local\supporttool"
     $desktopfile = "$home\Desktop\j-Drev.cmd"
     $fileprint = "$installdir\fileprint.ps1"
-    $desktopfilescript = 'powershell.exe ". $fileprint"'
+    $desktopfilescript = "powershell.exe . $fileprint"
     Out-File $desktopfile -InputObject $desktopfilescript -Encoding ascii
 }
 

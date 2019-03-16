@@ -5,7 +5,7 @@
 Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
 # Install Folder
 $url = "https://raw.githubusercontent.com/jesperberth/supporttool/master/supporttool.ps1"
-$url = "https://raw.githubusercontent.com/jesperberth/supporttool/master/fileprint.ps1"
+$url2 = "https://raw.githubusercontent.com/jesperberth/supporttool/master/fileprint.ps1"
 $installdir = "$home\appdata\local\supporttool"
 $supportfile = "$installdir\supporttool.ps1"
 $fileprintfile = "$installdir\fileprint.ps1"

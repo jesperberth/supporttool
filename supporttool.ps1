@@ -102,7 +102,9 @@ function InstallCode {
     "vscode",
     "sublimetext3",
     "cyberduck",
-    "brackets"
+    "brackets",
+    "safari",
+    "microsoft-edge-insider"
     )
 
     foreach ($item in $programlist){

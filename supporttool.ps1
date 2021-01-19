@@ -12,7 +12,7 @@ function Show-Menu
     Write-Host "1: Install Standard Software"
     Write-Host "3: Install Programming Suite"
     Write-Host "4: Install Video Suite"
-    Write-Host -ForegroundColor Yellow "5: Run Support Tool"
+    Write-Host -ForegroundColor Yellow "5: Run TeamViewer"
     Write-Host "6: Setup Netshare and Print"
     Write-Host "==============================="
     Write-Host "88: Clear Cached Credential"

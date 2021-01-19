@@ -6,7 +6,7 @@ if($testsc -ne $null){
 else{
     write-host "Dosnt exist"
     write-host -ForegroundColor Green "Please enter credentials for Server2.jjk.local`n"
-    write-host -ForegroundColor Yellow "Format: jjk\<username>"
+    write-host -ForegroundColor Yellow "Format: JJK\<username>"
     $creds = Get-Credential
     New-StoredCredential -Credentials $creds -Persist Enterprise -Type Generic -Target "server2.jjk.local"
 }
@@ -25,6 +25,6 @@ Write-Host "Printer Exist"
 }
 else{
 write-host "setup printers"
-#add-printer -ConnectionName "\\server2.jjk.local\OKI ES8473 MFP COLOR"
-#add-printer -ConnectionName "\\server2.jjk.local\OKI ES8473 MFP SH"
+add-printer -ConnectionName "\\server2.jjk.local\Canon C3730i PCL6 Color"
+add-printer -ConnectionName "\\server2.jjk.local\Canon C3730i PCL6 SH"
 }

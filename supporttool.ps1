@@ -1,22 +1,22 @@
 ﻿# Menu driven Support Tool
 #
 # Author: Jesper Berth, Arrow ECS, jesper.berth@arrow.com - 13. November 2018
-# Version 0.0.1
+# Version 0.0.2
 function Show-Menu
 {
     param (
-        [string]$Title = "Support Tool - 160319"
+        [string]$Title = "Support Tool - 190121"
     )
     Clear-Host
     Write-Host "======== $Title ========`n"
     Write-Host "1: Install Standard Software"
-    Write-Host "2: Install Adobe Creative Suite"
     Write-Host "3: Install Programming Suite"
     Write-Host "4: Install Video Suite"
-    Write-Host "5: Run Support Tool"
+    Write-Host -ForegroundColor Yellow "5: Run Support Tool"
     Write-Host "6: Setup Netshare and Print"
     Write-Host "==============================="
-    Write-Host "99: Run Driver Tool"
+    Write-Host "88: Clear Cached Credential"
+    Write-Host "99: Run Driver Tool"
     Write-Host "==============================="
     Write-Host "Q: Press 'Q' to quit."
     Write-Host "==============================="
@@ -36,8 +36,6 @@ function ChocoInstalled {
             write-host -ForegroundColor red "Choco is not Installed`n"
             InstallChoco
         }
-    
-    
 }
 
 function ChocoInstall($program){
@@ -48,7 +46,7 @@ function ChocoInstall($program){
 
 function InstallStandard {
     write-host -ForegroundColor Green "Install Standard Software`n"
-    
+
     $programlist = @(
     "office365business",
     "microsoft-teams",
@@ -56,7 +54,6 @@ function InstallStandard {
     "firefox",
     "7zip",
     "adobereader",
-    "flashplayerplugin",
     "vlc",
     "filezilla"
     )
@@ -68,7 +65,7 @@ function InstallStandard {
 
 function drivertool {
     Write-Host -ForegroundColor Yellow "Detecting Hardware manufactor`n"
-    
+
     $ComputerHW = Get-WmiObject -Class Win32_ComputerSystem
     $ComputerInfoManufacturer = $ComputerHW.Manufacturer
 
@@ -80,20 +77,9 @@ function drivertool {
         write-host "No Support tool for this Computer"
     }else{
         write-host "No Support tool for this Computer"
-    } 
+    }
 
     write-host  "Hardware vendor: $ComputerInfoManufacturer"
-}
-
-function InstallAdobeCreative {
-    write-host -ForegroundColor Green "Install Adobe Creative Suite`n"
-    $programlist = @(
-    "adobe-creative-cloud"
-    )
-
-    foreach ($item in $programlist){
-        ChocoInstall $item
-    }
 }
 
 function InstallCode {
@@ -115,8 +101,7 @@ function InstallCode {
 function InstallVideo {
     write-host -ForegroundColor Green "Install Video Suite`n"
     $programlist = @(
-    "handbrake.install",
-    ""
+    "handbrake.install"
     )
 
     foreach ($item in $programlist){
@@ -149,6 +134,20 @@ function RunNetPrint {
     Out-File $desktopfile -InputObject $desktopfilescript -Encoding ascii
 }
 
+function ClearStoredCredential {
+    if(get-command Get-StoredCredential -ErrorAction SilentlyContinue){
+        write-host -ForegroundColor Green "CredentialManager is installed"
+    }
+    else{
+        write-host -ForegroundColor Red "CredentialManager is not installed`n"
+        write-host "Installing NuGet and CredentialManager"
+        Install-PackageProvider -Name Nuget -MinimumVersion 2.8.5.201 -Force
+        install-module -Name CredentialManager -Confirm:$false -force
+    }
+
+    Remove-StoredCredential -Target "server2.jjk.local"
+}
+
 ChocoInstalled
 do
  {
@@ -157,7 +156,7 @@ do
      switch ($selection)
      {
          '1' {
-             Clear-Host            
+             Clear-Host
              InstallStandard
          } '2' {
              Clear-Host
@@ -174,7 +173,10 @@ do
          } '6' {
              Clear-Host
              RunNetPrint
-         } '99' {
+         } '88' {
+             Clear-Host
+             ClearStoredCredential
+         } '99' {
              Clear-Host
              drivertool
          }

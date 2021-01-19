@@ -26,3 +26,5 @@ $desktopfilescript = "powershell.exe $runscriptfile"
 # Create Files
 Out-File $runscriptfile -InputObject $runscript -Encoding utf8
 Out-File $desktopfile -InputObject $desktopfilescript -Encoding ascii
+
+exit 0

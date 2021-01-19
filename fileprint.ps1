@@ -20,11 +20,14 @@ write-host "setup drives"
 New-PSDrive -Name "J" -Root "\\server2.jjk.local\JJK" -Persist -PSProvider "FileSystem" -Credential $creds2
 }
 
-if(Get-Printer -name "\\server2.jjk.local\Canon C3730i PCL6 Color"-ErrorAction SilentlyContinue){
+if(Get-Printer -name "\\server2.jjk.local\Canon C3730i PCL6 SH"-ErrorAction SilentlyContinue){
 Write-Host "Printer Exist"
 }
 else{
 write-host "setup printers"
 add-printer -ConnectionName "\\server2.jjk.local\Canon C3730i PCL6 Color"
 add-printer -ConnectionName "\\server2.jjk.local\Canon C3730i PCL6 SH"
+
+(Get-WMIObject -ClassName win32_printer |Where-Object -Property Name -eq "\\server2.jjk.local\Canon C3730i PCL6 SH").SetDefaultPrinter()
+
 }

@@ -20,7 +20,7 @@ write-host "setup drives"
 New-PSDrive -Name "J" -Root "\\server2.jjk.local\JJK" -Persist -PSProvider "FileSystem" -Credential $creds2
 }
 
-if(Get-Printer -name "\\server2.jjk.local\OKI ES8473 MFP SH"-ErrorAction SilentlyContinue){
+if(Get-Printer -name "\\server2.jjk.local\Canon C3730i PCL6 Color"-ErrorAction SilentlyContinue){
 Write-Host "Printer Exist"
 }
 else{

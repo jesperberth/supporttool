@@ -1,10 +1,10 @@
 ﻿$testsc = Get-StoredCredential -AsCredentialObject -Target "server2"
 
 if($testsc -ne $null){
-    write-host "Exist"
+    write-host "Credentials Exist"
 }
 else{
-    write-host "Dosnt exist"
+    write-host "No Credentials"
     write-host -ForegroundColor Green "Please enter credentials for Server2`n"
     write-host -ForegroundColor Yellow "Format: <username>"
     $creds = Get-Credential

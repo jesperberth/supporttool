@@ -10,7 +10,7 @@ $installdir = "$home\appdata\local\supporttool"
 $supportfile = "$installdir\supporttool.ps1"
 $fileprintfile = "$installdir\fileprint.ps1"
 
-
+write-host "Download Updates"
 # Download SupportScript
 Invoke-WebRequest -Uri $url -OutFile $supportfile
 Invoke-WebRequest -Uri $url2 -OutFile $fileprintfile

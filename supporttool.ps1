@@ -5,7 +5,7 @@
 function Show-Menu
 {
     param (
-        [string]$Title = "Support Tool - 0121-9"
+        [string]$Title = "Support Tool - 0121-10"
     )
     Clear-Host
     Write-Host "======== $Title ========`n"
@@ -151,7 +151,8 @@ function ClearStoredCredential {
 
 function update {
     $updatefile = "$home\appdata\local\supporttool\update.ps1"
-    Start-Process powershell -Verb runAs -ArgumentList $updatefile
+    Start-Process powershell -ArgumentList $updatefile
+    # -Verb runAs
     exit 0
 }
 

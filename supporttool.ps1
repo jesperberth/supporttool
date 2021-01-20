@@ -151,7 +151,7 @@ function ClearStoredCredential {
 
 function update {
     $updatefile = "$home\appdata\local\supporttool\update.ps1"
-    Start-Process powershell -Verb runAs -argument 'updatefile'
+    Start-Process powershell -Verb runAs -argument $updatefile
     exit 0
 }
 

@@ -2,7 +2,7 @@
 #
 # Author: Jesper Berth, Arrow ECS, jesper.berth@arrow.com - 13. November 2018
 # Version 0.0.2
-Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -ErrorAction SilentlyContinue
 # Install Folder
 $url = "https://raw.githubusercontent.com/jesperberth/supporttool/master/supporttool.ps1"
 $url2 = "https://raw.githubusercontent.com/jesperberth/supporttool/master/fileprint.ps1"
@@ -11,7 +11,11 @@ $installdir = "$home\appdata\local\supporttool"
 $supportfile = "$installdir\supporttool.ps1"
 $fileprintfile = "$installdir\fileprint.ps1"
 $updatefile = "$installdir\update.ps1"
-mkdir $installdir
+
+If(!(test-path $installdir))
+{
+      New-Item -ItemType Directory -Force -Path $installdir
+}
 
 # Download SupportScript
 Invoke-WebRequest -Uri $url -OutFile $supportfile

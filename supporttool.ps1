@@ -150,9 +150,8 @@ function ClearStoredCredential {
 }
 
 function update {
-    $installdir = "$home\appdata\local\supporttool"
-    $updatefile = "$installdir\update.ps1"
-    "Start-Process powershell -Verb runAs 'Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression $updatefile'"
+    $updatefile = "$home\appdata\local\supporttool\update.ps1"
+    Start-Process powershell -Verb runAs -argument 'updatefile'
     exit 0
 }
 

@@ -27,4 +27,5 @@
 #Out-File $runscriptfile -InputObject $runscript -Encoding utf8
 #Out-File $desktopfile -InputObject $desktopfilescript -Encoding ascii
 write-host "Test"
+Start-Sleep -Seconds 10
 #exit 0

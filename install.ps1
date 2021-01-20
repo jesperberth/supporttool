@@ -6,14 +6,17 @@ Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
 # Install Folder
 $url = "https://raw.githubusercontent.com/jesperberth/supporttool/master/supporttool.ps1"
 $url2 = "https://raw.githubusercontent.com/jesperberth/supporttool/master/fileprint.ps1"
+$url3 = "https://raw.githubusercontent.com/jesperberth/supporttool/master/update.ps1"
 $installdir = "$home\appdata\local\supporttool"
 $supportfile = "$installdir\supporttool.ps1"
 $fileprintfile = "$installdir\fileprint.ps1"
+$updatefile = "$installdir\update.ps1"
 mkdir $installdir
 
 # Download SupportScript
 Invoke-WebRequest -Uri $url -OutFile $supportfile
 Invoke-WebRequest -Uri $url2 -OutFile $fileprintfile
+Invoke-WebRequest -Uri $url3 -OutFile $updatefile
 
 # Run Script - runs script with Elevated Rights
 $runscriptfile = "$installdir\run.ps1"

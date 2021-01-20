@@ -17,6 +17,7 @@ function Show-Menu
     Write-Host "==============================="
     Write-Host "88: Clear Cached Credential"
     Write-Host "99: Run Driver Tool"
+    Write-Host "U: Update Tool"
     Write-Host "==============================="
     Write-Host "Q: Press 'Q' to quit."
     Write-Host "==============================="
@@ -148,6 +149,13 @@ function ClearStoredCredential {
     Remove-StoredCredential -Target "server2"
 }
 
+function update {
+    $installdir = "$home\appdata\local\supporttool"
+    $updatefile = "$installdir\update.ps1"
+    "Start-Process powershell -Verb runAs 'Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression $updatefile'"
+    exit 0
+}
+
 ChocoInstalled
 do
  {
@@ -171,8 +179,11 @@ do
              Clear-Host
              RunSupport
          } '6' {
+                Clear-Host
+                RunNetPrint
+         } 'u' {
              Clear-Host
-             RunNetPrint
+             update
          } '88' {
              Clear-Host
              ClearStoredCredential

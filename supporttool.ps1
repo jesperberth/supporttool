@@ -5,7 +5,7 @@
 function Show-Menu
 {
     param (
-        [string]$Title = "Support Tool - 0121-4"
+        [string]$Title = "Support Tool - 0121-5"
     )
     Clear-Host
     Write-Host "======== $Title ========`n"
@@ -145,7 +145,7 @@ function ClearStoredCredential {
         install-module -Name CredentialManager -Confirm:$false -force
     }
 
-    Remove-StoredCredential -Target "server2.jjk.local"
+    Remove-StoredCredential -Target "server2"
 }
 
 ChocoInstalled

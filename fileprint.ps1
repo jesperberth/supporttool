@@ -6,7 +6,7 @@ if($testsc -ne $null){
 else{
     write-host "Dosnt exist"
     write-host -ForegroundColor Green "Please enter credentials for Server2.jjk.local`n"
-    write-host -ForegroundColor Yellow "Format: JJK\<username>"
+    write-host -ForegroundColor Yellow "Format: <username>"
     $creds = Get-Credential
     New-StoredCredential -Credentials $creds -Persist Enterprise -Type Generic -Target "server2.jjk.local"
 }

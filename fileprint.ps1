@@ -1,6 +1,6 @@
 ﻿$testsc = Get-StoredCredential -AsCredentialObject -Target "server2"
 
-if($testsc -ne $null){
+if($testsc){
     write-host "Credentials Exist"
 }
 else{

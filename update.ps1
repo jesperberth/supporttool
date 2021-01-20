@@ -12,6 +12,9 @@ $fileprintfile = "$installdir\fileprint.ps1"
 
 write-host "Download Updates"
 # Download SupportScript
+Remove-Item $supportfile
+remove-item $fileprintfile
+
 Invoke-WebRequest -Uri $url -OutFile $supportfile
 Invoke-WebRequest -Uri $url2 -OutFile $fileprintfile
 

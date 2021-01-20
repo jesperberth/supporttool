@@ -2,7 +2,7 @@
 #
 # Author: Jesper Berth, Arrow ECS, jesper.berth@arrow.com - 13. November 2018
 # Version 0.0.2
-Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -ErrorAction SilentlyContinue
+#Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -ErrorAction SilentlyContinue
 # Install Folder
 $url = "https://raw.githubusercontent.com/jesperberth/supporttool/master/supporttool.ps1"
 $url2 = "https://raw.githubusercontent.com/jesperberth/supporttool/master/fileprint.ps1"

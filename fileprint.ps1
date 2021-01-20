@@ -17,6 +17,7 @@ Write-Host "Drives Exist"
 }
 else{
 write-host "setup drives"
+net use J: /delete /y
 New-PSDrive -Name "J" -Root "\\server2\JJK" -Persist -PSProvider "FileSystem" -Credential $creds2
 }
 

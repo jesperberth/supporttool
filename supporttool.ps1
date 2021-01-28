@@ -56,6 +56,7 @@ function InstallStandard {
     "7zip",
     "adobereader",
     "vlc",
+    "microsoft-edge",
     "filezilla"
     )
 
@@ -90,8 +91,7 @@ function InstallCode {
     "sublimetext3",
     "cyberduck",
     "brackets",
-    "safari",
-    "microsoft-edge-insider"
+    "safari"
     )
 
     foreach ($item in $programlist){

@@ -15,6 +15,7 @@ function Show-Menu
     Write-Host -ForegroundColor Yellow "5: Run TeamViewer"
     Write-Host "6: Setup Netshare and Print"
     Write-Host "==============================="
+    Write-Host "77: Clear printers"
     Write-Host "88: Clear Cached Credential"
     Write-Host "99: Run Driver Tool"
     Write-Host "U: Update Tool"
@@ -150,6 +151,11 @@ function ClearStoredCredential {
     Remove-StoredCredential -Target "server2.jjk.local"
 }
 
+function ClearPrinters {
+    Write-Host "Remove Printers"
+    Get-Printer | Remove-Printer
+}
+
 function update {
     $updatefile = "$home\appdata\local\supporttool\update.ps1"
     Start-Process powershell -ArgumentList $updatefile
@@ -185,7 +191,10 @@ do
          } 'u' {
              Clear-Host
              update
-         } '88' {
+         } '77' {
+             Clear-Host
+             ClearPrinters
+         } '88' {
              Clear-Host
              ClearStoredCredential
          } '99' {

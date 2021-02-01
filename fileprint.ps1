@@ -1,7 +1,8 @@
 ﻿$testsc = Get-StoredCredential -AsCredentialObject -Target "server2.jjk.local"
+$testsc2 = Get-StoredCredential -AsCredentialObject -Target "server2"
 
-if($testsc){
-    write-host "Credentials Exist"
+if($testsc -and $testsc2){
+    write-host "Credentials for server2.jjk.local and server2 exist"
 }
 else{
     write-host "No Credentials"
@@ -9,6 +10,7 @@ else{
     write-host -ForegroundColor Yellow "Format: <username>"
     $creds = Get-Credential
     New-StoredCredential -Credentials $creds -Persist Enterprise -Type Generic -Target "server2.jjk.local"
+    New-StoredCredential -Credentials $creds -Persist Enterprise -Type Generic -Target "server2"
 }
 $creds2 = Get-StoredCredential -Target "server2.jjk.local"
 

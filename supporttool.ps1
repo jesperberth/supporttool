@@ -147,6 +147,7 @@ function ClearStoredCredential {
     }
 
     Remove-StoredCredential -Target "server2"
+    Remove-StoredCredential -Target "server2.jjk.local"
 }
 
 function update {

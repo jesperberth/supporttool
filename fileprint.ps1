@@ -9,10 +9,9 @@ else{
     write-host -ForegroundColor Green "Please enter credentials for Server2.jjk.local`n"
     write-host -ForegroundColor Yellow "Format: <username>"
     $creds = Get-Credential
-    New-StoredCredential -Credentials $creds -Persist Enterprise -Type Generic -Target "server2.jjk.local"
-    New-StoredCredential -Credentials $creds -Persist Enterprise -Type Generic -Target "server2"
+    New-StoredCredential -Credentials $creds -Persist Enterprise -Type DomainPassword -Target "server2.jjk.local"
     New-StoredCredential -Credentials $creds -Persist Enterprise -Type DomainPassword -Target "server2"
-}
+    }
 $creds2 = Get-StoredCredential -Target "server2.jjk.local"
 
 if(Get-PSDrive -name "J" -ErrorAction SilentlyContinue){

@@ -1,7 +1,8 @@
 ﻿$testsc = Get-StoredCredential -AsCredentialObject -Target "server2.jjk.local"
 $testsc2 = Get-StoredCredential -AsCredentialObject -Target "server2"
+$testprintserver = Get-StoredCredential -AsCredentialObject -Target "printserver"
 
-if($testsc -and $testsc2){
+if($testsc -and $testsc2 -and $testprintserver){
     write-host "Credentials for server2.jjk.local and server2 exist"
 }
 else{
@@ -11,6 +12,7 @@ else{
     $creds = Get-Credential
     New-StoredCredential -Credentials $creds -Persist Enterprise -Type Generic -Target "server2.jjk.local"
     New-StoredCredential -Credentials $creds -Persist Enterprise -Type Generic -Target "server2"
+    New-StoredCredential -Credentials $creds -Persist Enterprise -Type Generic -Target "printserver"
 }
 $creds2 = Get-StoredCredential -Target "server2.jjk.local"
 
@@ -23,23 +25,23 @@ net use J: /delete /y
 New-PSDrive -Name "J" -Root "\\server2.jjk.local\JJK" -Persist -PSProvider "FileSystem" -Credential $creds2
 }
 
-if(Get-Printer -name "\\printserver.jjk.local\Canon C3730i PCL6 SH"-ErrorAction SilentlyContinue){
+if(Get-Printer -name "\\printserver\Canon C3730i PCL6 SH"-ErrorAction SilentlyContinue){
 Write-Host "Printer Canon C3730i PCL6 SH exist"
 }
 else{
 write-host "setup printer - Canon C3730i PCL6 SH"
-add-printer -ConnectionName "\\printserver.jjk.local\Canon C3730i PCL6 SH"
+add-printer -ConnectionName "\\printserver\Canon C3730i PCL6 SH"
 
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows" -Name "LegacyDefaultPrinterMode" -Value ”1”
 
-(Get-WMIObject -ClassName win32_printer |Where-Object -Property Name -eq "\\printserver.jjk.local\Canon C3730i PCL6 SH").SetDefaultPrinter()
+(Get-WMIObject -ClassName win32_printer |Where-Object -Property Name -eq "\\printserver\Canon C3730i PCL6 SH").SetDefaultPrinter()
 
 }
 
-if(Get-Printer -name "\\printserver.jjk.local\Canon C3730i PCL6 Color"-ErrorAction SilentlyContinue){
+if(Get-Printer -name "\\printserver\Canon C3730i PCL6 Color"-ErrorAction SilentlyContinue){
     Write-Host "Printer Canon C3730i PCL6 Color exist"
     }
     else{
     write-host "setup printer - Canon C3730i PCL6 Color"
-    add-printer -ConnectionName "\\printserver.jjk.local\Canon C3730i PCL6 Color"
+    add-printer -ConnectionName "\\printserver\Canon C3730i PCL6 Color"
     }

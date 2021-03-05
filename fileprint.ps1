@@ -11,6 +11,7 @@ else{
     $creds = Get-Credential
     New-StoredCredential -Credentials $creds -Persist Enterprise -Type Generic -Target "server2.jjk.local"
     New-StoredCredential -Credentials $creds -Persist Enterprise -Type Generic -Target "server2"
+    New-StoredCredential -Credentials $creds -Persist Enterprise -Type DomainPassword -Target "server2"
 }
 $creds2 = Get-StoredCredential -Target "server2.jjk.local"
 

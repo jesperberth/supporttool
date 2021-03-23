@@ -147,7 +147,7 @@ function ClearStoredCredential {
         install-module -Name CredentialManager -Confirm:$false -force
     }
 
-    #Remove-StoredCredential -Target "server2"
+    Remove-StoredCredential -Target "server2"
     Remove-StoredCredential -Target "server2.jjk.local"
 }
 

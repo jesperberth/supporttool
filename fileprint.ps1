@@ -1,4 +1,4 @@
-﻿$testsc = Get-StoredCredential -Target "server2.jjk.local" -Type DomainPassword -AsCredentialObject
+﻿$testsc = Get-StoredCredential -Target "server2.jjk.local" -Type DomainPassword
 
 if($testsc){
     write-host "Credentials for server2.jjk.local"
@@ -10,7 +10,7 @@ else{
     $creds = Get-Credential
     New-StoredCredential -Credentials $creds -Persist Enterprise -Type DomainPassword -Target "server2.jjk.local"
     }
-$creds2 = Get-StoredCredential -Target "server2.jjk.local" -Type DomainPassword -AsCredentialObject
+$creds2 = Get-StoredCredential -Target "server2.jjk.local" -Type DomainPassword
 
 if(Get-PSDrive -name "J" -ErrorAction SilentlyContinue){
 Write-Host "Drives Exist"

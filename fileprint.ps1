@@ -1,4 +1,4 @@
-﻿$testsc = Get-StoredCredential -AsCredentialObject -Target "server2.jjk.local"
+﻿$testsc = Get-StoredCredential -Target "server2.jjk.local" -Type DomainPassword -AsCredentialObject
 
 if($testsc){
     write-host "Credentials for server2.jjk.local"
@@ -9,9 +9,8 @@ else{
     write-host -ForegroundColor Yellow "Format: <username>"
     $creds = Get-Credential
     New-StoredCredential -Credentials $creds -Persist Enterprise -Type DomainPassword -Target "server2.jjk.local"
-    New-StoredCredential -Credentials $creds -Persist Enterprise -Type DomainPassword -Target "server2"
     }
-$creds2 = Get-StoredCredential -Target "server2"
+$creds2 = Get-StoredCredential -Target "server2.jjk.local" -Type DomainPassword -AsCredentialObject
 
 if(Get-PSDrive -name "J" -ErrorAction SilentlyContinue){
 Write-Host "Drives Exist"
@@ -19,7 +18,7 @@ Write-Host "Drives Exist"
 else{
 write-host "setup drives"
 net use J: /delete /y
-New-PSDrive -Name "J" -Root "\\server2\JJK" -Persist -PSProvider "FileSystem" -Credential $creds2
+New-PSDrive -Name "J" -Root "\\server2.jjk.local\JJK" -Persist -PSProvider "FileSystem" -Credential $creds2
 }
 
 if(Get-Printer -name "\\server2.jjk.local\Canon C3730i PCL6 SH"-ErrorAction SilentlyContinue){

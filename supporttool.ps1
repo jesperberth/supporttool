@@ -1,11 +1,11 @@
 ﻿# Menu driven Support Tool
 #
 # Author: Jesper Berth, Arrow ECS, jesper.berth@arrow.com - 13. November 2018
-# Version 0.0.2
+# Version 1.0.0
 function Show-Menu
 {
     param (
-        [string]$Title = "Support Tool - 0221-1"
+        [string]$Title = "Support Tool - 240321-1"
     )
     Clear-Host
     Write-Host "======== $Title ========`n"

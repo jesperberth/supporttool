@@ -140,6 +140,16 @@ function RunNetPrint {
     $fileprint = "$installdir\fileprint.ps1"
     $desktopfilescript = "powershell.exe . $fileprint"
     Out-File $desktopfile -InputObject $desktopfilescript -Encoding ascii
+
+    # Local Intranet security settings
+
+    $registryPath = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\jjk.local\server2"
+
+    if(!(Test-Path $registryPath)){
+        write-host "Add server2.jjk.local to reg"
+        New-Item -Path $registryPath -Force | Out-Null
+        New-ItemProperty -Path $registryPath -Name file -Value 1 -PropertyType DWORD -Force | Out-Null
+    }
 }
 
 function ClearStoredCredential {

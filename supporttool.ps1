@@ -114,9 +114,15 @@ function RunSupport {
     write-host -ForegroundColor Green "Download and run Teamviewer`n"
     $uri = "https://download.teamviewer.com/download/TeamViewerQS.exe"
     $outfile = "$home\TeamViewerQS.exe"
-    Invoke-WebRequest -Uri $uri -OutFile $outfile
-    write-host -ForegroundColor Yellow "*** Starting TeamViewer Quick Support ***`n"
-    & $outfile
+    if(Test-Path $outfile -PathType Leaf){
+        write-host -ForegroundColor Yellow "*** Starting TeamViewer Quick Support ***`n"
+        & $outfile
+    }
+    else {
+        Invoke-WebRequest -Uri $uri -OutFile $outfile
+        write-host -ForegroundColor Yellow "*** Starting TeamViewer Quick Support ***`n"
+        & $outfile
+    }
 }
 
 function RunNetPrint {

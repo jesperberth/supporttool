@@ -10,6 +10,7 @@ else{
     $creds = Get-Credential
     New-StoredCredential -Credentials $creds -Persist Enterprise -Type DomainVisiblePassword -Target "server2.jjk.local"
     }
+
 $creds2 = Get-StoredCredential -Target "server2.jjk.local" -Type DomainVisiblePassword
 
 if(Get-PSDrive -name "J" -ErrorAction SilentlyContinue){

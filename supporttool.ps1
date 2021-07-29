@@ -2,10 +2,9 @@
 #
 # Author: Jesper Berth, Arrow ECS, jesper.berth@arrow.com - 13. November 2018
 # Version 1.0.0
-function Show-Menu
-{
+function Show-Menu {
     param (
-        [string]$Title = "Support Tool - 240321-1"
+        [string]$Title = "Support Tool - 290721-1"
     )
     Clear-Host
     Write-Host "======== $Title ========`n"
@@ -31,16 +30,16 @@ function InstallChoco {
 
 function ChocoInstalled {
     write-host "Checking if choco is installed?`n"
-        if(get-command choco -ErrorAction SilentlyContinue){
-            write-host "Choco is installed`n"
-        }
-        else {
-            write-host -ForegroundColor red "Choco is not Installed`n"
-            InstallChoco
-        }
+    if (get-command choco -ErrorAction SilentlyContinue) {
+        write-host "Choco is installed`n"
+    }
+    else {
+        write-host -ForegroundColor red "Choco is not Installed`n"
+        InstallChoco
+    }
 }
 
-function ChocoInstall($program){
+function ChocoInstall($program) {
 
     write-host -ForegroundColor Green "Install $program`n"
     choco install $program -y
@@ -50,18 +49,18 @@ function InstallStandard {
     write-host -ForegroundColor Green "Install Standard Software`n"
 
     $programlist = @(
-    "office365business",
-    "microsoft-teams",
-    "googlechrome",
-    "firefox",
-    "7zip",
-    "adobereader",
-    "vlc",
-    "microsoft-edge",
-    "filezilla"
+        "office365business",
+        "microsoft-teams",
+        "googlechrome",
+        "firefox",
+        "7zip",
+        "adobereader",
+        "vlc",
+        "microsoft-edge",
+        "filezilla"
     )
 
-    foreach ($item in $programlist){
+    foreach ($item in $programlist) {
         ChocoInstall $item
     }
 }
@@ -72,13 +71,15 @@ function drivertool {
     $ComputerHW = Get-WmiObject -Class Win32_ComputerSystem
     $ComputerInfoManufacturer = $ComputerHW.Manufacturer
 
-    if($ComputerInfoManufacturer -eq "Lenovo" ){
+    if ($ComputerInfoManufacturer -eq "Lenovo" ) {
         write-host "Install Support tool for Lenovo"
         ChocoInstall lenovo-thinkvantage-system-update
-    }elseif ($ComputerInfoManufacturer -eq "Hewlett Packert") {
+    }
+    elseif ($ComputerInfoManufacturer -eq "Hewlett Packert") {
         write-host "Hewlett Packert"
         write-host "No Support tool for this Computer"
-    }else{
+    }
+    else {
         write-host "No Support tool for this Computer"
     }
 
@@ -88,14 +89,14 @@ function drivertool {
 function InstallCode {
     write-host -ForegroundColor Green "Install Programming Suite`n"
     $programlist = @(
-    "vscode",
-    "sublimetext3",
-    "cyberduck",
-    "brackets",
-    "safari"
+        "vscode",
+        "sublimetext3",
+        "cyberduck",
+        "brackets",
+        "safari"
     )
 
-    foreach ($item in $programlist){
+    foreach ($item in $programlist) {
         ChocoInstall $item
     }
 }
@@ -103,10 +104,10 @@ function InstallCode {
 function InstallVideo {
     write-host -ForegroundColor Green "Install Video Suite`n"
     $programlist = @(
-    "handbrake.install"
+        "handbrake.install"
     )
 
-    foreach ($item in $programlist){
+    foreach ($item in $programlist) {
         ChocoInstall $item
     }
 }
@@ -114,7 +115,7 @@ function RunSupport {
     write-host -ForegroundColor Green "Download and run Teamviewer`n"
     $uri = "https://download.teamviewer.com/download/TeamViewerQS.exe"
     $outfile = "$home\TeamViewerQS.exe"
-    if(Test-Path $outfile -PathType Leaf){
+    if (Test-Path $outfile -PathType Leaf) {
         write-host -ForegroundColor Yellow "*** Starting TeamViewer Quick Support ***`n"
         & $outfile
     }
@@ -126,10 +127,10 @@ function RunSupport {
 }
 
 function RunNetPrint {
-    if(get-command Get-StoredCredential -ErrorAction SilentlyContinue){
+    if (get-command Get-StoredCredential -ErrorAction SilentlyContinue) {
         write-host -ForegroundColor Green "CredentialManager is installed"
     }
-    else{
+    else {
         write-host -ForegroundColor Red "CredentialManager is not installed`n"
         write-host "Installing NuGet and CredentialManager"
         Install-PackageProvider -Name Nuget -MinimumVersion 2.8.5.201 -Force
@@ -145,7 +146,7 @@ function RunNetPrint {
 
     $registryPath = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\jjk.local\server2"
 
-    if(!(Test-Path $registryPath)){
+    if (!(Test-Path $registryPath)) {
         write-host "Add server2.jjk.local to reg"
         New-Item -Path $registryPath -Force | Out-Null
         New-ItemProperty -Path $registryPath -Name file -Value 1 -PropertyType DWORD -Force | Out-Null
@@ -153,18 +154,17 @@ function RunNetPrint {
 }
 
 function ClearStoredCredential {
-    if(get-command Get-StoredCredential -ErrorAction SilentlyContinue){
+    if (get-command Get-StoredCredential -ErrorAction SilentlyContinue) {
         write-host -ForegroundColor Green "CredentialManager is installed"
     }
-    else{
+    else {
         write-host -ForegroundColor Red "CredentialManager is not installed`n"
         write-host "Installing NuGet and CredentialManager"
         Install-PackageProvider -Name Nuget -MinimumVersion 2.8.5.201 -Force
         install-module -Name CredentialManager -Confirm:$false -force
     }
 
-    Remove-StoredCredential -Target "server2"
-    Remove-StoredCredential -Target "server2.jjk.local"
+    Remove-StoredCredential -Type DomainVisiblePassword -Target "server2.jjk.local"
 }
 
 function ClearPrinters {
@@ -180,44 +180,42 @@ function update {
 }
 
 ChocoInstalled
-do
- {
-     Show-Menu
-     $selection = Read-Host "Please make a selection"
-     switch ($selection)
-     {
-         '1' {
-             Clear-Host
-             InstallStandard
-         } '2' {
-             Clear-Host
-             InstallAdobeCreative
-         } '3' {
-             Clear-Host
-             InstallCode
-         } '4' {
-             Clear-Host
-             InstallVideo
-         } '5' {
-             Clear-Host
-             RunSupport
-         } '6' {
-                Clear-Host
-                RunNetPrint
-         } 'u' {
-             Clear-Host
-             update
-         } '77' {
-             Clear-Host
-             ClearPrinters
-         } '88' {
-             Clear-Host
-             ClearStoredCredential
-         } '99' {
-             Clear-Host
-             drivertool
-         }
-     }
-     pause
- }
- until ($selection -eq 'q')
+do {
+    Show-Menu
+    $selection = Read-Host "Please make a selection"
+    switch ($selection) {
+        '1' {
+            Clear-Host
+            InstallStandard
+        } '2' {
+            Clear-Host
+            InstallAdobeCreative
+        } '3' {
+            Clear-Host
+            InstallCode
+        } '4' {
+            Clear-Host
+            InstallVideo
+        } '5' {
+            Clear-Host
+            RunSupport
+        } '6' {
+            Clear-Host
+            RunNetPrint
+        } 'u' {
+            Clear-Host
+            update
+        } '77' {
+            Clear-Host
+            ClearPrinters
+        } '88' {
+            Clear-Host
+            ClearStoredCredential
+        } '99' {
+            Clear-Host
+            drivertool
+        }
+    }
+    pause
+}
+until ($selection -eq 'q')

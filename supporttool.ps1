@@ -8,7 +8,7 @@ function Show-Menu {
     )
     Clear-Host
     Write-Host "======== $Title ========`n"
-    Write-Host "1: Install Standard Software"
+    Write-Host "1: Install Standard Software"
     Write-Host "3: Install Programming Suite"
     Write-Host "4: Install Video Suite"
     Write-Host -ForegroundColor Yellow "5: Run TeamViewer"

@@ -164,7 +164,7 @@ function ClearStoredCredential {
         install-module -Name CredentialManager -Confirm:$false -force
     }
 
-    Remove-StoredCredential -Type DomainVisiblePassword -Target "server2.jjk.local"
+    Remove-StoredCredential -Type DomainVisiblePassword -Target "server2"
 }
 
 function ClearPrinters {

@@ -3,23 +3,25 @@
 # Author: Jesper Berth, Arrow ECS, jesper.berth@arrow.com - 13. November 2018
 # Version 1.0.0
 function Show-Menu {
-    param (
-        [string]$Title = "Support Tool - 290721-1"
-    )
-    Clear-Host
+    param (
+        [string]$Title = "Support Tool - 140622-1"
+    )
+    Clear-Host
     Write-Host "======== $Title ========`n"
     Write-Host "1: Install Standard Software"
-    Write-Host "3: Install Programming Suite"
-    Write-Host "4: Install Video Suite"
-    Write-Host -ForegroundColor Yellow "5: Run TeamViewer"
-    Write-Host "6: Setup Netshare and Print"
+    Write-Host "3: Install Programming Suite"
+    Write-Host "4: Install Video Suite"
+    Write-Host -ForegroundColor Yellow "5: Run TeamViewer"
+    Write-Host "6: Setup Netshare"
+    Write-Host "7: Setup printers"
     Write-Host "==============================="
+    Write-Host "11: Update Installed Software"
     Write-Host "77: Clear printers"
     Write-Host "88: Clear Cached Credential"
     Write-Host "99: Run Driver Tool"
     Write-Host "U: Update Tool"
     Write-Host "==============================="
-    Write-Host "Q: Press 'Q' to quit."
+    Write-Host "Q: Press 'Q' to quit."
     Write-Host "==============================="
 }
 
@@ -63,6 +65,11 @@ function InstallStandard {
     foreach ($item in $programlist) {
         ChocoInstall $item
     }
+
+    drivertool
+    RunNet
+    RunPrint
+
 }
 
 function drivertool {
@@ -126,7 +133,7 @@ function RunSupport {
     }
 }
 
-function RunNetPrint {
+function RunNet {
     if (get-command Get-StoredCredential -ErrorAction SilentlyContinue) {
         write-host -ForegroundColor Green "CredentialManager is installed"
     }
@@ -153,6 +160,32 @@ function RunNetPrint {
     }
 }
 
+function RunPrint {
+    if(Get-Printer -name "Canon C3730i PCL6 SH"-ErrorAction SilentlyContinue){
+        Write-Host "Printer Canon C3730i PCL6 SH exist"
+        }
+        else{
+            write-host "setup printer - Canon C3730i PCL6 SH"
+            Add-PrinterPort -Name "CanonIP-SH" -PrinterHostAddress "192.168.1.12"
+            pnputil.exe -a "C:\Temp\Driver\CNP60MA64.INF"
+            Add-PrinterDriver -Name "Canon Generic Plus PCL6"
+            Add-Printer -Name "Canon C3730i PCL6 SH"  -PortName "CanonIP-SH" -DriverName "Canon Generic Plus PCL6"
+            printui.exe /Sr /n "Canon C3730i PCL6 SH" /a "C:\Temp\Canon_C3730i_PCL6_SH.dat" c d g r p
+            (Get-WMIObject -ClassName win32_printer |Where-Object -Property Name -eq "Canon C3730i PCL6 SH").SetDefaultPrinter()
+        }
+
+    if(Get-Printer -name "Canon C3730i PCL6 Color"-ErrorAction SilentlyContinue){
+            Write-Host "Printer Canon C3730i PCL6 Color exist"
+            }
+        else{
+            write-host "setup printer - Canon C3730i PCL6 Color"
+            Add-PrinterPort -Name "CanonIP-Color" -PrinterHostAddress "192.168.1.12"
+            pnputil.exe -a "C:\Temp\Driver\CNP60MA64.INF"
+            Add-PrinterDriver -Name "Canon Generic Plus PCL6"
+            Add-Printer -Name "Canon C3730i PCL6 Color"  -PortName "CanonIP-Color" -DriverName "Canon Generic Plus PCL6"
+            printui.exe /Sr /n "Canon C3730i PCL6 Color" /a "C:\Temp\Canon_C3730i_PCL6_Color.dat" c d g r p
+        }
+}
 function ClearStoredCredential {
     if (get-command Get-StoredCredential -ErrorAction SilentlyContinue) {
         write-host -ForegroundColor Green "CredentialManager is installed"
@@ -179,6 +212,11 @@ function update {
     exit 0
 }
 
+function UpdateSoftware {
+    Write-Host "Update all installed software"
+    choco upgrade all -y
+}
+
 ChocoInstalled
 do {
     Show-Menu
@@ -201,10 +239,16 @@ do {
             RunSupport
         } '6' {
             Clear-Host
-            RunNetPrint
+            RunNet
+        } '7' {
+            Clear-Host
+            RunPrint
         } 'u' {
             Clear-Host
             update
+        } '11' {
+            Clear-Host
+            UpdateSoftware
         } '77' {
             Clear-Host
             ClearPrinters

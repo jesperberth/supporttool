@@ -19,5 +19,5 @@ if(Get-PSDrive -name "J" -ErrorAction SilentlyContinue){
 else{
     write-host "setup drives"
     net use J: /delete /y
-    New-PSDrive -Name "J" -Root "\\server2\JJK" -Persist -PSProvider "FileSystem" -Credential $creds2
+    New-PSDrive -Name "J" -Root "\\192.168.1.8\JJK" -Persist -PSProvider "FileSystem" -Credential $creds2
 }

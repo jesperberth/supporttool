@@ -16,6 +16,7 @@ function Show-Menu {
     Write-Host "7: Setup printers"
     Write-Host "==============================="
     Write-Host "11: Update Installed Software"
+    Write-Host "66: Clear Network drives"
     Write-Host "77: Clear printers"
     Write-Host "88: Clear Cached Credential"
     Write-Host "99: Run Driver Tool"
@@ -200,6 +201,11 @@ function ClearStoredCredential {
     Remove-StoredCredential -Type DomainVisiblePassword -Target "server2"
 }
 
+function ClearShares {
+    Write-Host "Remove Shares"
+    net use J: /delete /y
+}
+
 function ClearPrinters {
     Write-Host "Remove Printers"
     Get-Printer | Remove-Printer
@@ -249,6 +255,9 @@ do {
         } '11' {
             Clear-Host
             UpdateSoftware
+        } '66' {
+            Clear-Host
+            ClearShares
         } '77' {
             Clear-Host
             ClearPrinters

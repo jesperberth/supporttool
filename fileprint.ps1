@@ -14,10 +14,19 @@ else{
 $creds2 = Get-StoredCredential -Target "server2" -Type DomainVisiblePassword
 
 if(Get-PSDrive -name "J" -ErrorAction SilentlyContinue){
-    Write-Host "Drives Exist"
+    Write-Host "Drive J Exist"
 }
 else{
     write-host "setup drives"
     net use J: /delete /y
-    New-PSDrive -Name "J" -Root "\\192.168.1.8\JJK" -Persist -PSProvider "FileSystem" -Credential $creds2
+    New-PSDrive -Name "J" -Root "\\10.0.0.4\JJK" -Persist -PSProvider "FileSystem" -Credential $creds2
+}
+
+if(Get-PSDrive -name "X" -ErrorAction SilentlyContinue){
+    Write-Host "Drive X Exist"
+}
+else{
+    write-host "setup drives"
+    net use J: /delete /y
+    New-PSDrive -Name "X" -Root "\\192.168.1.8\JJK" -Persist -PSProvider "FileSystem" -Credential $creds2
 }

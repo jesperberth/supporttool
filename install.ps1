@@ -34,4 +34,4 @@ $desktopfilescript = "powershell.exe $runscriptfile"
 Out-File $runscriptfile -InputObject $runscript -Encoding utf8
 Out-File $desktopfile -InputObject $desktopfilescript -Encoding ascii
 
-exit 0
+Exit

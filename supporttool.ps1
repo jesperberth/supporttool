@@ -4,7 +4,7 @@
 # Version 1.0.0
 function Show-Menu {
     param (
-        [string]$Title = "Support Tool - 121022-1"
+        [string]$Title = "Support Tool - 061122-1"
     )
     Clear-Host
     Write-Host "======== $Title ========`n"
@@ -12,13 +12,13 @@ function Show-Menu {
     Write-Host "3: Install Programming Suite"
     Write-Host "4: Install Video Suite"
     Write-Host -ForegroundColor Yellow "5: Run TeamViewer"
-    Write-Host "6: Setup Netshare"
+    #Write-Host "6: Setup Netshare"
     Write-Host "7: Setup printers"
     Write-Host "==============================="
     Write-Host "11: Update Installed Software"
     Write-Host "66: Clear Network drives"
     Write-Host "77: Clear printers"
-    Write-Host "88: Clear Cached Credential"
+    #Write-Host "88: Clear Cached Credential"
     Write-Host "99: Run Driver Tool"
     Write-Host "U: Update Tool"
     Write-Host "==============================="
@@ -59,7 +59,6 @@ function InstallStandard {
         "7zip",
         "adobereader",
         "vlc",
-        "microsoft-edge",
         "filezilla"
     )
 
@@ -68,7 +67,6 @@ function InstallStandard {
     }
 
     drivertool
-    RunNet
     RunPrint
 
 }

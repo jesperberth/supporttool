@@ -12,7 +12,7 @@ function Show-Menu {
     Write-Host "3: Install Programming Suite"
     Write-Host "4: Install Video Suite"
     Write-Host -ForegroundColor Yellow "5: Run TeamViewer"
-    #Write-Host "6: Setup Netshare"
+    Write-Host "6: Remove Netshare"
     Write-Host "7: Setup printers"
     Write-Host "==============================="
     Write-Host "11: Update Installed Software"
@@ -221,6 +221,11 @@ function UpdateSoftware {
     choco upgrade all -y
 }
 
+function RemoveNet {
+    Write-Host "Remove Old J-Drev"
+    net use J: /delete /y
+}
+
 ChocoInstalled
 do {
     Show-Menu
@@ -243,7 +248,7 @@ do {
             RunSupport
         } '6' {
             Clear-Host
-            RunNet
+            RemoveNet
         } '7' {
             Clear-Host
             RunPrint

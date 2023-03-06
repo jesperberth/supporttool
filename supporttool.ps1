@@ -4,7 +4,7 @@
 # Version 1.0.0
 function Show-Menu {
     param (
-        [string]$Title = "Support Tool - 061122-1"
+        [string]$Title = "Support Tool - 060323-1"
     )
     Clear-Host
     Write-Host "======== $Title ========`n"
@@ -52,8 +52,6 @@ function InstallStandard {
     write-host -ForegroundColor Green "Install Standard Software`n"
 
     $programlist = @(
-        "office365business",
-        "microsoft-teams",
         "googlechrome",
         "firefox",
         "7zip",
